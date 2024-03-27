@@ -24,6 +24,14 @@ function inserir(produto) {
     listaProdutos.push(produto);
 }
 
+function buscarPorId(id) {
+    for(let produto of listaProdutos) {
+        if(produto.id === id){
+            return produto;
+        }
+    }
+}
+
 function main() {
     console.log(listar());
 
@@ -40,6 +48,10 @@ function main() {
     });
 
     console.log(listar());
+
+    console.log(buscarPorId(5));
+    console.log(buscarPorId(2));
+
 }
 
 main();
