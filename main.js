@@ -1,56 +1,40 @@
-let idGerador = 2;
 
-let listaProdutos = [
-    {
-        id: 1,
-        nome: "arroz",
-        categoria: "alimento",
-        preco: 5.80
-    },
-    {
-        id: 2,
-        nome: "leite",
-        categoria: "bebida",
-        preco: 4.25
-    }
-];
-
-function listar() {
-    return listaProdutos;
-}
-
-function inserir(produto) {
-    produto.id = ++idGerador;
-    listaProdutos.push(produto);
-}
-
-function buscarPorId(id) {
-    for(let produto of listaProdutos) {
-        if(produto.id === id){
-            return produto;
-        }
-    }
-}
+const produtoRepository = require('./repository/produto_repository');
 
 function main() {
-    console.log(listar());
+    console.log("Listar 1:", produtoRepository.listar());
 
-    inserir({ 
+    produtoRepository.inserir({ 
         nome: "Feijao", 
         categoria: "alimento", 
         preco: 8.00 
     });
 
-    inserir({ 
+    produtoRepository.inserir({ 
         nome: "Suco de laranja", 
         categoria: "bebida", 
         preco: 9.20 
     });
 
-    console.log(listar());
+    produtoRepository.atualizar(2,{
+        id: 2,
+        nome: "leite",
+        categoria: "bebida",
+        preco: 4.00
+    });
 
-    console.log(buscarPorId(5));
-    console.log(buscarPorId(2));
+    console.log("Listar 2:",produtoRepository.listar());
+
+    console.log("Pesquisar pela categoria 'alimento'", 
+        produtoRepository.pesquisarPorCategoria('alimento'));
+
+    console.log("Pesquisar pelo nome like 'E", 
+        produtoRepository.pesquisarPorLikeNome('E'));
+
+
+    produtoRepository.deletar(2);
+    console.log("BuscarPorId4: ",produtoRepository.buscarPorId(4));
+    console.log("BuscarPorId2: ",produtoRepository.buscarPorId(2));
 
 }
 
